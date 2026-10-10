@@ -168,7 +168,7 @@ nominal 90-degree operating travel, direction/duty-cycle command information, an
 feedback channels. Its exact compatibility with the supplied Siemens valve actuators has not yet
 been established; these items will be checked at the electrical-interface stage.
 
-![Siemens actuator drawing supplied for the project](Project_Proposal_Capstone_assets/image-002.jpg)
+![Siemens actuator drawing supplied for the project](Project_Proposal_Images/100308435-1.png)
 
 *Figure 4B. Siemens gas butterfly actuator detail (VA33.VKG-28G).*
 #### Blower candidates and drive interface
