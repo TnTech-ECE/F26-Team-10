@@ -2,7 +2,7 @@
 
 **Department:** Electrical and Computer Engineering Department  
 **Institution:** Tennessee Technological University  
-**Team Members:** Daniel Craig, Charles Lutz, Charles Lutz, Ethan Davenport  
+**Team Members:** Daniel Craig, Charles Lutz, Alex Marquez, Ethan Davenport  
 
 ---
 
