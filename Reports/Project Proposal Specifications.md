@@ -513,7 +513,7 @@ commissioning screen shows target O₂ and measured O₂ plus progression throug
 points. These figures establish the user workflow, not an independently verified communications
 interface.
 
-![Sponsor-provided commissioning screen reference](Project_Proposal_Capstone_assets/image-009.jpg)
+![Sponsor-provided commissioning screen reference](Project_Proposal_Images/start-up-view.png)
 
 *Figure 10A. Sponsor-provided reference screen and startup/commissioning instructions.*
 
