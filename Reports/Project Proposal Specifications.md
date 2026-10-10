@@ -182,7 +182,7 @@ The additional AMETEK Nautilair 12.3-in reference describes 240 VAC blowers with
 reference literature, not proof that the project uses the 12.3-in unit. The sponsor cost sheet lists
 100144909 as the currently supplied blower; its interface should drive the first prototype.
 
-![Sponsor-supplied 8.9-in blower assembly and signal/power connector diagram](Project_Proposal_Images/Ametek_Blower_(1)-1.png)
+![Sponsor-supplied 8.9-in blower assembly and signal/power connector diagram](Project_Proposal_Images/Ametek_Blower.png)
 
 *Figure 4C. Sponsor-supplied 8.9-in blower assembly and signal/power connector diagram.*
 The blower tachometer is a measurement signal and must be scaled using the verified number of
