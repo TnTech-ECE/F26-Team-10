@@ -96,9 +96,12 @@ For gas-fired equipment, oxygen concentration in the exhaust can be used as an i
 excess air. Carbon monoxide must also be considered because an apparently efficient combustion
 condition can still be unacceptable if insufficient air produces excessive CO.
 The optimization problem can therefore be represented conceptually as:
-$$
-\text{Optimal Combustion} = f(\text{Air Setting}, \text{Fuel Setting}, \text{Firing Rate}, O_2, CO, \text{Stability}, \text{Efficiency})
-$$
+
+<p align="center">
+  Optimal Combustion =
+  <i>f</i>(Air Setting, Fuel Setting, Firing Rate, O<sub>2</sub>, CO, Stability, Efficiency)
+</p>
+
 The objective of the proposed system will be to determine the combination of controllable
 parameters that produces the best acceptable combustion condition rather than simply
 maximizing or minimizing one measurement.
@@ -185,6 +188,7 @@ reference literature, not proof that the project uses the 12.3-in unit. The spon
 ![Sponsor-supplied 8.9-in blower assembly and signal/power connector diagram](Project_Proposal_Images/Ametek_Blower.png)
 
 *Figure 4C. Sponsor-supplied 8.9-in blower assembly and signal/power connector diagram.*
+
 The blower tachometer is a measurement signal and must be scaled using the verified number of
 pulses per revolution. Wiring, voltage levels, current demand, and signal conditioning must be
 verified against the exact hardware revision before connection.
@@ -307,8 +311,8 @@ developing another continuous combustion-control algorithm.
 A broader engineering approach is to use measured system outputs as feedback to an optimization
 algorithm. A generic closed-loop process is:
 Initial Settings → Adjust Air / Fuel → Allow System to Stabilize → Measure O₂ / CO / Temperature
-/ Load → Calculate Objective Function → Check Limits → Continue Search or Stop → Select Best
-#### Valid Setting
+/ Load → Calculate Objective Function → Check Limits → Continue Search or Stop → Select Best Valid Setting
+
 The proposed project will investigate whether such an approach can reduce commissioning time
 while maintaining or improving combustion performance.
 
@@ -336,15 +340,22 @@ the customer before implementation.
 
 ### 8.3 Optimization Algorithm
 The optimization algorithm will treat the air and fuel settings as adjustable variables.
+
 $$
-\mathbf{x} = \begin{bmatrix} \theta_{\mathrm{air}} \\ \theta_{\mathrm{gas}} \end{bmatrix}
+\mathbf{x} =
+\begin{bmatrix}
+\theta_{\mathrm{air}} \\
+\theta_{\mathrm{gas}}
+\end{bmatrix}
 $$
 
 where $\theta_{\mathrm{air}}$ is the air damper position and $\theta_{\mathrm{gas}}$ is the gas damper position. The algorithm will
 evaluate each candidate's operating condition using a performance function.
+
 $$
 J = w_1 E_{O_2} + w_2 E_{CO} + w_3 E_{\eta} + w_4 E_{\mathrm{stability}}
 $$
+
 Where $E_{O_2}$ represents deviation from the desired O₂ condition, $E_{CO}$ represents undesirable CO
 production, $E_{\eta}$ represents combustion-efficiency loss, $E_{\mathrm{stability}}$ represents instability or excessive
 variation, and $w_1$ through $w_4$ are weighting factors.
@@ -824,3 +835,10 @@ If successful, the resulting system could provide Lochinvar with a more consiste
 data-driven approach to combustion commissioning. The project could reduce commissioning
 time, improve documentation, and provide a foundation for further development of automated
 commissioning technologies for commercial combustion systems.
+
+
+
+
+
+
+
