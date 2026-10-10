@@ -152,7 +152,7 @@ The air actuator is rotated 90°relative to the gas actuator. The air-intake val
 gas-valve features a 1.100 in. damper blade with an O-ring seal. Dimensions are drawing
 references; final fit and required clearances will be verified against the provided hardware.
 
-![Sponsor-provided intake assembly drawing](F26-Team-10/Reports/Project_Proposal_Images/100303976-1.png)
+![Sponsor-provided intake assembly drawing](Project_Proposal_Images/100303976-1.png)
 
 *Figure 4A. Sponsor-provided intake assembly drawing and bill of materials.*
 #### Proposed installation controls
