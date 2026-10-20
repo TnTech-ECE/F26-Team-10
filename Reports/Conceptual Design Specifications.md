@@ -2,14 +2,12 @@
 
 ## Automated Commissioning and Optimization of the Lochinvar Hellcat Combustion Assembly
 
-**Customer:** Lochinvar Corporation\
-**Course:** ECE 4961 Capstone Design 1\
-**Instructor:** Christopher Johnson\
-**Project Supervisor:** Ben Putnam\
-**Team:** Daniel Craig, Charles Lutz, Alex Marquez, Ethan Davenport\
-**Document status:** Conceptual design; interface and cost figures
-remain subject to verification\
-**Date:** October 19, 2026
+#### Customer: Lochinvar Corporation
+#### Instructor: Christopher Johnson
+#### Project Supervisor: Ben Putnam
+#### Team Members: Daniel Craig, Charles Lutz, Alex Marquez, Ethan Davenport
+#### Course: ECE 4961 Capstone Design 1
+#### Date: 10/19/2026
 
 ------------------------------------------------------------------------
 
