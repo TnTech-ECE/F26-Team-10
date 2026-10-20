@@ -198,6 +198,7 @@ technician.
                                       connector pinout, and
                                       command/feedback signals are
                                       confirmed.
+                                      
   -----------------------------------------------------------------------
 
 ### 2.2 Origins of constraints
@@ -250,6 +251,7 @@ technician.
                                       Existing lab instruments and
                                       sponsor-provided components will be
                                       used where available.
+                                      
   -----------------------------------------------------------------------
 
 ## 3. Comparative Analysis of Potential Solutions
@@ -304,6 +306,7 @@ interfaces, development effort, cost, and future extensibility.
   controller        into                                     risk; risks             factory safety
                     safety-critical                          compromising factory    logic.
                     logic.                                   protections.            
+                    
   ----------------------------------------------------------------------------------------------------
 
 ### 3.1 Selected solution
@@ -458,6 +461,7 @@ flowchart TB
                           isolated and burner     approval are required.
                           firing prevented.       This is not a
                                                   software-only safeguard.
+                                                  
   ------------------------------------------------------------------------
 
 ### 4.2 Operational flowchart
@@ -541,6 +545,7 @@ flowchart TD
                           candidate, test data    exports, or closes
                           source, warnings, and   report.
                           report.                 
+                          
   -----------------------------------------------------------------------
 
 ## 5. Atomic Subsystem Specifications
@@ -873,6 +878,7 @@ certified or compliant.
                                       safety, disclosing limitations,
                                       avoiding misleading claims, and
                                       reporting results honestly.
+                                      
   -----------------------------------------------------------------------
 
 ### 6.3 Environmental and economic impact
@@ -953,6 +959,7 @@ university equipment.
   total**                                                       already available
                                                                 from
                                                                 sponsor/university.
+                                                                
   -----------------------------------------------------------------------------------
 
 **In-kind sponsor hardware (reference value, not cash expenditure)**
@@ -1025,6 +1032,7 @@ peer review.
                                                   review, testing, final
                                                   report, and
                                                   presentation.
+                                                  
   -----------------------------------------------------------------------
 
 **Required team skills and gaps:** The team shall complete a short
@@ -1151,6 +1159,7 @@ gantt
                                       equivalent dry-test tasks. unsupported
                                                                  combustion benefit
                                                                  is claimed.
+                                                                 
   -----------------------------------------------------------------------------------
 
 The team shall define numeric tolerances after component specifications
@@ -1202,6 +1211,7 @@ quantitative pass.
   Overstated project      Misleading customer or  Limit claims to gas-free
   results                 academic conclusions    testing and clearly identify
                                                   what has not been validated.
+                                                  
   -------------------------------------------------------------------------------
 
 ## 10. Deliverables
