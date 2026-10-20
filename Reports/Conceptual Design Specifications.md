@@ -40,23 +40,24 @@ Commissioning a combustion system can require evaluating multiple operating poin
 |    ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    | Requirement |
 |:--------|:---|
 | R-01 | The prototype **shall** provide a repeatable workflow for setting up, running, stopping, and reviewing a commissioning-style test. |
-| **R-02** | The prototype **shall** interface with the supplied physical hardware only through electrical interfaces verified against the exact component documentation and/or measurements approved by the supervisor. |
-| **R-03** | The prototype **shall** provide independently addressable command channels for the air actuator, gas actuator, and blower if those functions are included in the final hardware configuration. |
-| **R-04** | The prototype **shall** acquire and timestamp available actuator feedback, blower tachometer feedback, controller commands, and system status. |
-| **R-05** | The prototype **shall** accept simulated or recorded O₂, CO, CO₂, temperature, pressure, and modulation data for algorithm testing when live combustion measurements are unavailable. |
-| **R-06** | The optimization software **shall** reject candidate settings that exceed configured command, travel, speed, or data-validity limits. |
-| **R-07** | The software **shall** detect missing, stale, implausible, or out-of-range feedback and stop issuing new optimization commands when required feedback is invalid. |
-| **R-08** | The prototype **shall** include a readily accessible stop function that halts new commands and places outputs in a defined, documented state. The correct safe state shall be determined from the actuator and electrical-interface documentation; the software shall not assume that removing power is safe for every mechanism. |
-| **R-09** | The prototype **shall not** use gas, ignite a burner, or conduct live-combustion testing as part of this project. |
-| **R-10** | The prototype **shall not** bypass, disable, or replace a factory burner-management system, flame-proving function, safety interlock, or required lockout. |
-| **R-11** | The prototype **shall not** autonomously authorize a real boiler for commercial operation or represent simulated results as validated combustion results. |
-| **R-12** | The system **shall** log the date/time, test identifier, software/configuration version, requested settings, measured feedback, simulated/recorded inputs, errors, rejected candidates, and selected result. |
-| **R-13** | The system **shall** generate a report containing the tested settings, constraints, data source, optimization result, known limitations, and test status. |
-| **R-14** | The design **shall** electrically isolate or appropriately condition signals wherever required by the verified voltage levels, grounding arrangement, noise environment, or component documentation. |
-| **R-15** | The team **shall** compare the automated workflow with a documented baseline workflow using measurable criteria such as completion time, command/feedback error, repeatability, and completeness of records. |
-| **R-16** | The team **shall** verify hardware behavior first on a bench with fuel isolated and the burner unable to fire, before integrating software-controlled motion. |
-| **R-17** | The design **shall** retain a manual approval step before any candidate settings are marked as accepted. |
-| **R-18** | The team **shall** document unresolved interface assumptions and shall not energize a component until its supply requirements, connector pinout, and command/feedback signals are confirmed. |
+| R-02 | The prototype **shall** interface with the supplied physical hardware only through electrical interfaces verified against the exact component documentation and/or measurements approved by the supervisor. |
+| R-03 | The prototype **shall** provide independently addressable command channels for the air actuator, gas actuator, and blower if those functions are included in the final hardware configuration. |
+| R-04 | The prototype **shall** acquire and timestamp available actuator feedback, blower tachometer feedback, controller commands, and system status. |
+| R-05 | The prototype **shall** accept simulated or recorded O₂, CO, CO₂, temperature, pressure, and modulation data for algorithm testing when live combustion measurements are unavailable. |
+| R-06 | The optimization software **shall** reject candidate settings that exceed configured command, travel, speed, or data-validity limits. |
+| R-07 | The software **shall** detect missing, stale, implausible, or out-of-range feedback and stop issuing new optimization commands when required feedback is invalid. |
+| R-08 | The prototype **shall** include a readily accessible stop function that halts new commands and places outputs in a defined, documented state. The correct safe state shall be determined from the actuator and electrical-interface documentation; the software shall not assume that removing power is safe for every mechanism. |
+| R-09 | The prototype **shall not** use gas, ignite a burner, or conduct live-combustion testing as part of this project. |
+| R-10 | The prototype **shall not** bypass, disable, or replace a factory burner-management system, flame-proving function, safety interlock, or required lockout. |
+| R-11 | The prototype **shall not** autonomously authorize a real boiler for commercial operation or represent simulated results as validated combustion results. |
+| R-12 | The system **shall** log the date/time, test identifier, software/configuration version, requested settings, measured feedback, simulated/recorded inputs, errors, rejected candidates, and selected result. |
+| R-13 | The system **shall** generate a report containing the tested settings, constraints, data source, optimization result, known limitations, and test status. |
+| R-14 | The design **shall** electrically isolate or appropriately condition signals wherever required by the verified voltage levels, grounding arrangement, noise environment, or component documentation. |
+| R-15 | The team **shall** compare the automated workflow with a documented baseline workflow using measurable criteria such as completion time, command/feedback error, repeatability, and completeness of records. |
+| R-16 | The team **shall** verify hardware behavior first on a bench with fuel isolated and the burner unable to fire, before integrating software-controlled motion. |
+| R-17 | The design **shall** retain a manual approval step before any candidate settings are marked as accepted. |
+| R-18 | The team **shall** document unresolved interface assumptions and shall not energize a component until its supply requirements, connector pinout, and command/feedback signals are confirmed. |
+
 ### 2.2 Origins of constraints
 
 | Constraint                                                   | Origin and design effect                                                                                                                     |
