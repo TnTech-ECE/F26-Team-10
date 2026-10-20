@@ -112,95 +112,75 @@ The software will separate command generation from measurement evaluation. Candi
 
 ### 4.1 Hardware block diagram
 
-``` mermaid
+```mermaid
 flowchart TB
-    OP[Operator / Technician]
-    UI[Operator Interface<br/>Setup, status, stop, review]
-    PC[Supervisory Computer<br/>Workflow, optimization, limits]
-    LOG[Data Logger and Report Generator]
-    SIM[Simulation / Recorded Data Input<br/>O2, CO, temperature, pressure, load]
-    IF[Isolated I/O and Signal Conditioning]
-    AIR[Air Damper Actuator<br/>Command and position feedback]
-    GAS[Gas Damper Actuator<br/>Command and position feedback]
-    BLOW[Blower Assembly<br/>PWM command and tach feedback]
-    PWR[Protected Low-Voltage Power<br/>Fusing, regulation, isolation as required]
-    SAFE[Physical Test Safeguards<br/>Fuel isolated; burner cannot fire]
+    OP[Operator] <--> UI[User Interface]
+    UI <--> PC[Control and Optimization]
+    PC <--> LOG[Data Logging]
+    SIM[Simulated Combustion Data] --> PC
 
-    OP <--> UI
-    UI <--> PC
-    PC <--> LOG
-    SIM --> PC
-    PC <--> IF
-    IF <--> AIR
-    IF <--> GAS
-    IF <--> BLOW
-    PWR --> IF
-    PWR --> AIR
-    PWR --> GAS
-    PWR --> BLOW
-    SAFE -. "test condition verified before energizing" .-> IF
+    PC <--> IO[Isolated I/O]
+    IO <--> AIR[Air Damper Actuator]
+    IO <--> GAS[Gas Damper Actuator]
+    IO <--> BLOW[Blower Assembly]
+
+    PWR[Power Supply] --> IO
 ```
 
-**Block and connection definitions**
+### Block Definitions
 
-| Block / connection           | Function                                                                                               | Interface and constraints                                                                                                          |
-|:-----------------------------|:-------------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------|
-| Operator interface           | Allows configuration, starting a permitted test, stopping, viewing status, and approving a result.     | Local UI; the stop action must remain accessible during a run.                                                                     |
-| Supervisory computer         | Executes state machine, bounded optimization, validation, and orchestration.                           | Internal software interfaces; it must not be the only safety measure for physical hazards.                                         |
-| I/O and signal conditioning  | Converts software requests to verified electrical commands and converts feedback to safe logic levels. | Exact voltage, current, isolation, and timing requirements are pending component verification.                                     |
-| Air actuator                 | Moves the air damper to a commanded position when supported by its actual interface.                   | Command method, travel, feedback, and permissible limits must be taken from the exact actuator documentation.                      |
-| Gas actuator                 | Provides physical gas-damper motion during dry testing only. No gas is connected or used.              | Physical movement is allowed only under the approved no-gas test setup; do not infer valve position from command percentage alone. |
-| Blower                       | Responds to a verified speed command and provides tachometer feedback if supported.                    | AC line power remains isolated from low-voltage control electronics; PWM and tach signal levels must be confirmed.                 |
-| Simulation/replay input      | Supplies O₂, CO, CO₂, temperature, pressure, and firing-rate data to exercise software logic.          | Every value carries a source label and timestamp. Simulated data cannot be presented as live measurements.                         |
-| Data logger/report generator | Stores time-series records and creates a summary of the run.                                           | Logs include configuration/software version, units, source of measurements, faults, and rejected candidates.                       |
-| Protected low-voltage power  | Supplies interface electronics and actuators within their rated limits.                                | Power rails, grounding, fuse sizes, and wire gauges are selected from verified datasheets and load measurements.                   |
-| Physical test safeguards     | Ensures the test is conducted with gas isolated and burner firing prevented.                           | A documented pre-test checklist and supervisor approval are required. This is not a software-only safeguard.                       |
+| Block | Function |
+|---|---|
+| Operator Interface | Configure tests, monitor status, and approve results. |
+| Control and Optimization | Adjust damper positions and blower speed within defined limits. |
+| Simulated Data | Provide combustion data for optimization testing. |
+| Data Logging | Record commands, feedback, and optimization results. |
+| Isolated I/O | Interface with hardware control and feedback signals. |
+| Air Damper Actuator | Adjust air damper position. |
+| Gas Damper Actuator | Adjust gas damper position during dry testing; no gas is connected. |
+| Blower Assembly | Control blower speed and monitor tachometer feedback. |
+| Power Supply | Provide appropriately rated power to the hardware. |
 
 ### 4.2 Operational flowchart
 
-``` mermaid
+```mermaid
 flowchart TD
-    A([Power on]) --> B[Load configuration and hardware profile]
-    B --> C{Fuel isolated and burner unable to fire?}
-    C -- No --> X[Do not start; report failed precondition]
-    C -- Yes --> D[Verify interface, feedback, limits, and stop function]
-    D --> E{Self-check passed?}
-    E -- No --> X
-    E -- Yes --> F[Operator selects bench or simulation/replay mode]
-    F --> G[Select test profile and allowed command bounds]
-    G --> H[Record baseline readings and configuration]
-    H --> I[Generate next candidate setting]
-    I --> J{Candidate within all limits?}
-    J -- No --> K[Reject candidate and log reason]
-    K --> N{Stop requested or search complete?}
-    J -- Yes --> L[Apply command through verified interface]
-    L --> M[Wait for feedback/stability; acquire data]
-    M --> O{Feedback valid and system stable?}
-    O -- No --> P[Stop new commands; log fault]
-    O -- Yes --> Q[Evaluate objective and constraints]
-    Q --> R[Log command, feedback, and result]
-    R --> N
-    N -- No --> I
-    N -- Yes --> S[Select best valid candidate or report no valid result]
-    S --> T[Operator reviews and approves report]
-    T --> U([End test])
-    P --> V[Return to documented safe state and require operator review]
-    X --> U
+    A([Start]) --> B[Load Configuration]
+    B --> C{Safety Checks Passed?}
+    C -- No --> X[Stop and Log Fault]
+    C -- Yes --> D[Select Test Mode and Limits]
+    D --> E[Record Baseline]
+    E --> F[Generate Candidate Settings]
+    F --> G{Within Limits?}
+    G -- No --> H[Reject and Log]
+    H --> M{Stop or Complete?}
+    G -- Yes --> I[Command Actuators and Blower]
+    I --> J[Acquire Feedback and Test Data]
+    J --> K{Data Valid?}
+    K -- No --> X
+    K -- Yes --> L[Evaluate and Log Results]
+    L --> M
+    M -- No --> F
+    M -- Yes --> N[Select Best Candidate]
+    N --> O[Operator Reviews Results]
+    O --> P([End])
+    X --> Q[Document Fault and Require Review]
+    Q --> P
 ```
 
-### 4.3 Operating states
+### 4.3 Operating States
 
-| State          | Behavior                                                                                              | Exit condition                                |
-|:---------------|:------------------------------------------------------------------------------------------------------|:----------------------------------------------|
-| Initialization | Load hardware profile, configuration, software version, and command bounds.                           | Configuration valid.                          |
-| Pre-check      | Confirm gas isolation, burner-disabled test setup, feedback availability, and stop function.          | All required checks pass.                     |
-| Ready          | Display test mode and allow operator to select a test.                                                | Operator starts or cancels.                   |
-| Command        | Apply one bounded command through the verified interface.                                             | Command completed or timeout occurs.          |
-| Stabilization  | Wait for physical feedback to settle or for a configured test interval.                               | Stability criteria met or timeout occurs.     |
-| Measurement    | Capture physical feedback and simulated/replayed sensor values.                                       | Data passes validity checks.                  |
-| Evaluation     | Calculate objective score and enforce hard constraints.                                               | Candidate accepted or rejected.               |
-| Stop/Fault     | Stop issuing new commands; transition outputs to the documented safe state; preserve diagnostic logs. | Operator inspects and resets the system.      |
-| Review         | Show best valid candidate, test data source, warnings, and report.                                    | Operator approves, exports, or closes report. |
+| State | Behavior | Exit Condition |
+|---|---|---|
+| Initialization | Load configuration and hardware limits. | Configuration valid. |
+| Pre-check | Verify interfaces, feedback, stop function, and safe test setup. | Checks pass. |
+| Ready | Select test mode and command limits. | Operator starts test. |
+| Command | Send bounded commands to actuators and blower. | Command completes or times out. |
+| Measurement | Collect feedback and simulated or recorded data. | Data validity checked. |
+| Evaluation | Evaluate results against optimization objectives and constraints. | Candidate evaluated. |
+| Stop/Fault | Stop new commands, log fault, and enter documented safe state. | Operator review and reset. |
+| Review | Display results, warnings, and report for approval. | Operator approves or closes report. |
+
 
 ## 5. Atomic Subsystem Specifications
 
