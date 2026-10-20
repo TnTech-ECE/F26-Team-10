@@ -69,7 +69,6 @@ Commissioning a combustion system can require evaluating multiple operating poin
 | No source code for the existing controller                   | Sponsor constraint. The team will develop an independent application and use only documented, permitted interfaces.                          |
 | Safe command limits and feedback validation                  | Electrical and mechanical safety; prevents unintended travel, overspeed, and invalid optimization results.                                   |
 | Manufacturer limits govern all commissioning assumptions     | Customer and product documentation. No limits will be invented from a spreadsheet or inferred from another actuator model.                   |
-| Human review of results                                      | Ethical and professional responsibility. The tool supports commissioning; it does not certify the boiler.                                    |
 | Student budget and schedule                                  | Course resource constraints. Existing lab instruments and sponsor-provided components will be used where available.                          |
 
 ## 3. Comparative Analysis of Potential Solutions
