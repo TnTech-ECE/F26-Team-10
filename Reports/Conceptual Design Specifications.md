@@ -145,41 +145,32 @@ flowchart TB
 
 ```mermaid
 flowchart TD
-    A([Start]) --> B[Load Configuration]
-    B --> C{Safety Checks Passed?}
-    C -- No --> X[Stop and Log Fault]
-    C -- Yes --> D[Select Test Mode and Limits]
-    D --> E[Record Baseline]
-    E --> F[Generate Candidate Settings]
-    F --> G{Within Limits?}
-    G -- No --> H[Reject and Log]
-    H --> M{Stop or Complete?}
-    G -- Yes --> I[Command Actuators and Blower]
-    I --> J[Acquire Feedback and Test Data]
-    J --> K{Data Valid?}
-    K -- No --> X
-    K -- Yes --> L[Evaluate and Log Results]
-    L --> M
-    M -- No --> F
-    M -- Yes --> N[Select Best Candidate]
-    N --> O[Operator Reviews Results]
-    O --> P([End])
-    X --> Q[Document Fault and Require Review]
-    Q --> P
+    A([Start]) --> B[Initialize and Verify Hardware]
+    B --> C[Record Initial Settings and Feedback]
+    C --> D[Generate Candidate Settings]
+    D --> E[Adjust Air Damper, Gas Damper, and Blower]
+    E --> F[Acquire Feedback and Combustion Data]
+    F --> G{Data Valid and Within Limits?}
+    G -- No --> H[Reject Candidate or Stop on Fault]
+    G -- Yes --> I[Evaluate Optimization Result]
+    H --> J{Continue?}
+    I --> J
+    J -- Yes --> D
+    J -- No --> K[Present Best Settings for Approval]
+    K --> L([End])
 ```
 
 ### 4.3 Operating States
 
 | State | Behavior | Exit Condition |
 |---|---|---|
-| Initialization | Load configuration and hardware limits. | Configuration valid. |
-| Pre-check | Verify interfaces, feedback, stop function, and safe test setup. | Checks pass. |
-| Ready | Select test mode and command limits. | Operator starts test. |
-| Command | Send bounded commands to actuators and blower. | Command completes or times out. |
-| Measurement | Collect feedback and simulated or recorded data. | Data validity checked. |
-| Evaluation | Evaluate results against optimization objectives and constraints. | Candidate evaluated. |
-| Stop/Fault | Stop new commands, log fault, and enter documented safe state. | Operator review and reset. |
-| Review | Display results, warnings, and report for approval. | Operator approves or closes report. |
+| Initialization | Load configuration and verify hardware interfaces. | Hardware checks pass. |
+| Baseline | Record initial actuator positions, blower speed, and available data. | Baseline recorded. |
+| Optimization | Generate candidate settings and adjust the air damper, gas damper, and blower. | Candidate settings applied. |
+| Measurement | Acquire feedback and simulated or recorded combustion data. | Data validity checked. |
+| Evaluation | Check constraints, calculate the objective score, and log results. | Candidate accepted or rejected. |
+| Stop/Fault | Stop new commands and log the fault when feedback or safety checks fail. | Operator review and reset. |
+| Review | Present the best candidate and test report for manual approval. | Operator approves or rejects results. |
 
 
 ## 5. Atomic Subsystem Specifications
