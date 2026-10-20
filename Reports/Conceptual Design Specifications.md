@@ -512,15 +512,7 @@ The proposal identifies four team members but does not provide verified individu
 
 ### 7.3 Timeline and Gantt chart
 
-![Capstone 1 Ganatt Chart](Project_Proposal_Images/100303976-1.png)
-
-**Critical path and decision gates**
-
-1.  **Gate 1 — Interface verification:** Confirm exact actuator and blower models, pinouts, electrical ratings, command method, and feedback signals. Do not purchase final I/O hardware before this gate.
-2.  **Gate 2 — Safe bench operation:** Demonstrate supply protection, correct signal levels, position/tach feedback, and stop behavior with gas isolated and burner firing prevented.
-3.  **Gate 3 — Software-in-the-loop:** Replay fixed datasets and prove command bounds, invalid-data handling, timeout behavior, logging, and report generation.
-4.  **Gate 4 — Integrated gas-free prototype:** Demonstrate repeatable actuator/blower commands and feedback acquisition without any fuel or combustion.
-5.  **Gate 5 — Acceptance review:** Compare the prototype against agreed criteria and document limitations. No live-combustion validation is included.
+![Capstone 1 Ganatt Chart](Conceptual_Images/Gantt_Chart.png)
 
 ## 8. Verification and Acceptance Plan
 
