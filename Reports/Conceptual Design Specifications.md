@@ -512,33 +512,7 @@ The proposal identifies four team members but does not provide verified individu
 
 ### 7.3 Timeline and Gantt chart
 
-The schedule aligns with the proposal’s September 2026–April 2027 project window. Exact course milestones should replace these planning dates when confirmed. The highest-risk unknowns—actuator and blower electrical interfaces—are scheduled early because they constrain controller selection, wiring, and software implementation.
-
-``` mermaid
-gantt
-    title Conceptual Design and Prototype Schedule
-    dateFormat YYYY-MM-DD
-    axisFormat %b %Y
-    section Requirements
-    Confirm scope, no-gas boundary, and safety plan :a1, 2026-09-15, 2026-10-23
-    Inventory drawings, pinouts, and signal types :a2, 2026-10-12, 2026-11-06
-    section Detailed Design
-    Select controller and I/O after interface review :b1, 2026-10-26, 2026-11-13
-    Design electrical interface and test fixture :b2, 2026-11-02, 2026-11-27
-    Design state machine and optimization method :b3, 2026-10-26, 2026-11-27
-    section Prototype
-    Bench-test signals and feedback scaling :c1, 2026-11-23, 2026-12-18
-    Build UI, logging, and replay data pipeline :c2, 2026-11-16, 2027-01-08
-    Implement bounded optimizer and fault handling :c3, 2026-11-30, 2027-01-15
-    section Integration and Validation
-    Integrate hardware and software :d1, 2027-01-04, 2027-01-29
-    Verify stop, timeout, and invalid-data cases :d2, 2027-01-18, 2027-02-12
-    Repeatability and baseline workflow comparison :d3, 2027-02-01, 2027-03-05
-    Fix defects and complete acceptance tests :d4, 2027-03-01, 2027-03-19
-    section Final Deliverables
-    Analyze results and finalize documentation :e1, 2027-03-08, 2027-04-02
-    Final demonstration and presentation :e2, 2027-04-05, 2027-04-23
-```
+![Capstone 1 Ganatt Chart](Project_Proposal_Images/100303976-1.png)
 
 **Critical path and decision gates**
 
