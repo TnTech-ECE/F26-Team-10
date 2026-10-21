@@ -325,6 +325,22 @@ Testing must be performed in an appropriately controlled environment under the s
 qualified personnel. The project shall not intentionally test combustion conditions that fall outside
 approved manufacturer operating limits merely to demonstrate the optimization algorithm.
 
+### 6.6 Problem Complexity
+
+The project involves several interconnected engineering challenges that must be addressed to develop a reliable automated commissioning system.
+
+**Hardware Integration:** The system must coordinate the blower, actuators, sensors, and controller. Differences in communication interfaces, electrical requirements, feedback signals, and operating limits may affect how these components work together.
+
+**Control and Optimization:** Air-damper position, gas-damper position, and blower speed can influence system performance. The controller must determine suitable settings across the required modulation range rather than relying on a single operating point.
+
+**Measurement and Data Acquisition:** Sensor accuracy, resolution, response time, and data availability affect the reliability of the measurements used to evaluate system performance. Measurements and commanded settings must be recorded consistently so results can be compared.
+
+**Repeatability and Verification:** The system must produce consistent results when the same test conditions and settings are repeated. Defined acceptance criteria are needed to determine whether the commissioning process meets the project's requirements.
+
+**Safety and Operating Constraints:** The system must respect approved equipment limits and preserve existing safety functions. Testing and verification must remain within the project's approved scope and available test conditions.
+
+These challenges interact because hardware limitations affect the settings the controller can command, measurement quality affects the optimization results, and repeatability determines whether those results can be trusted. The project therefore requires coordinated hardware integration, control development, measurement validation, and verification.
+
 ## 7. Survey of Existing Solutions
 
 ### 7.1 Manual Commissioning
