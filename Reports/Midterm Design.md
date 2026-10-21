@@ -831,27 +831,3 @@ commanded component fails to track. Feedforward lookup values are baseline refer
 automatically optimized combustion settings.
 
 
-## A.5 Additional Sponsor-Provided Configuration
-
-| Parameter | Natural gas | LP / shared reference |
-|---|---:|---:|
-| Purge blower speed | 6,623 RPM | 6,623 RPM |
-| Feedforward premix | 75.2 | 75.2 |
-| Feedforward barometric reference | 989.5 | 994.1 |
-| Fan pulses/revolution | 2 | 2 |
-| Fan spike mask | 8 | 8 |
-
-The spreadsheet also lists observed values and controller settings: air damper 18.2-90 versus
-settings 17.7-90; gas damper 12.4-70.7 versus settings 11.9-75.7; blower 3,013-7,323 RPM versus
-settings 1,350-17,000. These should be recorded as provided, without interpreting them as
-validated safe operating boundaries.
-
-
-## A.6 Open Technical Items from the Proposal
-Confirm SQM33 model/protocol, actual damper calibration and feedback range, blower signal
-levels and tach scaling, O₂ sensor output/scaling, controller I/O expansion and isolation, electrical
-protection, and sponsor-approved test access. Hardware specifications not explicit in the supplied
-drawings remain to be verified.
-
-
-**Use limitation:** Sponsor spreadsheet values are baseline references only. They are not validated safe operating limits, calibrated absolute angles, or approved commands. The team must verify units, part numbers, scaling, interface behavior, and permitted limits against the exact hardware documentation and supervisor-approved test plan before use. No gas connection or burner firing is permitted in this project.
