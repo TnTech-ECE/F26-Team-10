@@ -245,7 +245,25 @@ replacement for these safety functions.
 
 ## 5. Specifications and Constraints
 
-### 5.1 Project Specifications
+### 5.1 Stakeholder Specifications
+
+The system shall meet the following proposed performance specifications to address Lochinvar Corporation's requirements for automated commissioning, repeatability, data collection, and verification. Final acceptance thresholds shall be confirmed with the project sponsor and validated against the capabilities of the selected hardware and measurement equipment.
+
+| ID | Stakeholder Need | Specification | Target | Verification Method |
+|---|---|---|---|---|
+| SS-01 | Automated commissioning | The system shall evaluate each required and approved operating point within the defined modulation range. | 100% of approved test points evaluated | Compare the commissioning log against the approved test-point list. |
+| SS-02 | Actuator positioning | The system shall position each controllable actuator within the specified angular tolerance of its target position. | Proposed tolerance: ±0.1° | Compare commanded and measured positions using verified position feedback or a calibrated reference. |
+| SS-03 | Blower control | The system shall achieve the commanded blower speed within the specified tolerance. | Proposed tolerance: ±2% of target RPM | Compare target RPM with measured RPM using a verified measurement method. |
+| SS-04 | Data collection | The system shall record all required operating measurements and control settings during each test. | At least 1 complete record per second | Inspect the recorded data and timestamps during a test. |
+| SS-05 | Measurement quality | The system shall document the accuracy, resolution, and units of each measurement used for commissioning decisions. | Documented for 100% of required measurement channels | Review sensor datasheets and compare measurements with suitable calibrated reference instruments. |
+| SS-06 | Repeatability | The system shall produce consistent results when the same test is repeated under equivalent conditions. | At least 3 runs per selected test condition; allowable variation defined for each metric before testing | Compare recorded measurements and calculated performance metrics across repeated runs. |
+| SS-07 | Commissioning efficiency | The system shall reduce the time required to complete the defined commissioning procedure compared with the manual baseline. | Proposed target: at least 20% reduction | Time both procedures using equivalent start conditions, end conditions, and required operating points. |
+| SS-08 | Operating limits | The system shall reject optimization settings outside approved operating limits and shall not bypass existing combustion safety functions. | Zero accepted settings outside approved limits | Test boundary conditions and review the command and fault logs in a controlled test environment. |
+| SS-09 | Fault handling | The system shall detect defined sensor and communication faults and prevent optimization from continuing with invalid required data. | 100% detection of the defined fault-injection test cases | Introduce simulated faults during controlled testing and verify the system response. |
+| SS-10 | Documentation | The system shall produce a commissioning record containing the test conditions, measurements, control settings, and final results. | 100% of completed test runs have a corresponding record | Inspect generated records for all required fields. |
+
+
+### 5.2 Project Specifications
 
 #### Combustion Optimization
 - The system shall determine optimized combustion settings for each required
