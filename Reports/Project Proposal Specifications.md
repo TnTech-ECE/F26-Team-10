@@ -79,6 +79,25 @@ compared with an approved manual commissioning procedure.
 The final system shall be considered an engineering commissioning and optimization tool and shall
 not independently certify the boiler as safe for commercial operation.
 
+
+### 2.2 Stakeholders
+
+**Lochinvar Corporation — Project Sponsor and Customer**
+
+Lochinvar Corporation is the project's sole identified stakeholder and the intended recipient of the automated commissioning system. The project's requirements and measures of success are based on Lochinvar's needs and expectations.
+
+Lochinvar's primary needs and interests include:
+
+- **Automated Commissioning:** Reduce the manual effort required to adjust air and gas damper positions across the required modulation range.
+- **Combustion Performance:** Identify operating settings that meet the approved combustion and performance requirements at the required operating points.
+- **Repeatability:** Produce consistent commissioning results when testing is performed under equivalent operating conditions.
+- **Data Collection:** Record relevant measurements, actuator positions, blower speed, modulation level, and operating conditions for analysis and verification.
+- **Safety and Operating Limits:** Ensure the optimization process operates within approved equipment limits and does not bypass existing combustion safety functions.
+- **Verification and Documentation:** Provide documented test results that demonstrate whether the system meets its specified performance requirements.
+
+The project will address these needs by developing an automated process that evaluates operating conditions, adjusts permitted settings, records measurement data, and verifies results against defined acceptance criteria. Project specifications and verification procedures will be aligned with Lochinvar's requirements and reviewed with the project sponsor as needed.
+
+
 ## 3. Background
 
 ### 3.1 Combustion Optimization
