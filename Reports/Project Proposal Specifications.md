@@ -243,7 +243,7 @@ verification, safety-state checks, and O₂ monitoring where applicable.
 The capstone system shall therefore operate as a supervised optimization layer rather than as a
 replacement for these safety functions.
 
-## 5. Specifications and Constraints
+## 5. Specifications
 
 ### 5.1 Stakeholder Specifications
 
