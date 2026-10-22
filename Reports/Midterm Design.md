@@ -93,8 +93,6 @@ The project will address these needs by developing an automated process that eva
 
 ### 2.4 Stakeholder Specifications
 
-The following specifications preserve the intent of the Project Proposal while adapting verification to the controlling gas-free project scope.
-
 | ID | Stakeholder need | Specification | Proposed target | Verification method |
 |---|---|---|---|---|
 | SS-01 | Automated commissioning workflow | The system shall evaluate every approved bench-test point in the test plan. | 100% of approved test points evaluated or explicitly marked failed/skipped with a reason. | Compare the run log with the approved test-point list. |
@@ -214,7 +212,7 @@ flowchart TD
 
 ## 5. Atomic Subsystem Specifications
 
-All numerical electrical values and command limits must be obtained from the exact manufacturer documentation or verified measurements before hardware commissioning. The specifications below define required behavior; they do not assume unverified actuator pinouts or calibration values.
+All numerical electrical values and command limits must be obtained from the exact manufacturer documentation or verified measurements before hardware commissioning. The specifications below define required behavior; they do not assume unverified actuator pinouts or calibration values. Subsystems are subject to change throughout the design process.
 
 ### 5.1 Subsystem A — Operator interface and workflow
 
@@ -508,7 +506,6 @@ The budget excludes a combustion analyzer because live combustion testing is out
 
 ### 7.2 Division of labor
 
-The proposal identifies four team members but does not provide verified individual skill assessments. The allocation below assigns primary ownership by subsystem and must be confirmed by the team based on demonstrated skills and workload. Every subsystem remains subject to peer review.
 
 | Team member      | Primary responsibility                      | Supporting responsibility / deliverables                                                                   |
 |:-----------------|:--------------------------------------------|:-----------------------------------------------------------------------------------------------------------|
@@ -518,7 +515,7 @@ The proposal identifies four team members but does not provide verified individu
 | Ethan Davenport  | Operator interface, logging, and reporting  | UI workflow, status/fault display, CSV/report generation, test documentation.                              |
 | All team members | Integration and design review               | Requirements traceability, risk review, testing, final report, and presentation.                           |
 
-**Required team skills and gaps:** The team shall complete a short skills inventory during the first design review. Embedded programming, electrical safety, controls, data analysis, and technical writing must each have a named primary and reviewer. Combustion expertise will be obtained from Lochinvar documentation and customer/supervisor consultation; the student team will not independently define live-combustion limits.
+Combustion expertise will be obtained from Lochinvar documentation and customer/supervisor consultation; the student team will not independently define live-combustion limits.
 
 ### 7.3 Timeline and Gantt chart
 
@@ -572,49 +569,60 @@ The team will deliver:
 
 ## 11. References
 
-1.  Lochinvar Corporation. *Crest Condensing Boiler with Hellcat Combustion Technology*. Product literature. Use the current manufacturer publication supplied by the customer.
-2.  Lochinvar Corporation. *Hellcat Service Manual*, document 100343237 / 2000600598, Revision C (as identified in the project proposal). The current revision and applicable boiler model must be confirmed before relying on a procedure or limit.
-3.  Siemens. *LMV37.400A / LMV37.420A Basic Unit with Integrated Air-Fuel Ratio Control for Forced-Draft Burners*, document A6V10095920. This document is a reference for evaluating candidate interfaces only; it does not establish compatibility with the supplied VA33 actuators.
-4.  A. O. Smith / Lochinvar. Intake assembly and blower drawings supplied by the project sponsor, including intake assembly references 100304496 / 1001303976 as listed in project materials and blower 100144909. Part-number discrepancies shall be resolved against the physical labels and latest drawing.
-5.  American Society of Heating, Refrigerating and Air-Conditioning Engineers (ASHRAE). *ASHRAE Handbook—Fundamentals*, chapter on combustion and fuels.
-6.  ASHRAE. *ASHRAE Handbook—Systems and Equipment*, chapter on boilers.
-7.  National Fire Protection Association. *NFPA 54: National Fuel Gas Code*. Current applicable edition to be confirmed by the customer/supervisor.
-8.  National Fire Protection Association. *NFPA 70: National Electrical Code*. Current applicable edition to be confirmed by the laboratory/supervisor.
-9.  CSA Group / ANSI. *CSA/ANSI Z21.13 / CSA 4.9: Gas-Fired Low-Pressure Steam and Hot Water Boilers*. Confirm the edition applicable to the actual host equipment.
-10. International Electrotechnical Commission. *IEC 60204-1: Safety of Machinery—Electrical Equipment of Machines*. Apply where relevant to the prototype and laboratory.
-11. ASHRAE. *Standard 202: The Commissioning Process*. Use as process guidance where relevant.
-12. IEEE. *IEEE Code of Ethics*. Professional responsibility and truthful reporting guidance.
+1. Lochinvar Corporation. *Crest Condensing Boiler with Hellcat Combustion Technology*. Manufacturer product literature supplied for the project.
 
-**Reference note:** Manufacturer-defined limits, wiring diagrams, and interface specifications shall be taken from the current documentation for the exact hardware supplied. Before final submission, the team should replace general document descriptions with exact revision numbers, publication dates, and stable URLs where available. No interface compatibility is asserted solely because two products are made by Siemens or appear in the same combustion system.
+2. Lochinvar Corporation. *Hellcat Service Manual*. Documents 100343237 / 2000600598, Revision C, as identified in the project proposal.
+
+3. Siemens. *LMV37.400A / LMV37.420A Basic Unit with Integrated Air-Fuel Ratio Control for Forced-Draft Burners*. Document A6V10095920.
+
+4. A. O. Smith / Lochinvar. *Intake Assembly and Blower Drawings*. Project sponsor–supplied documentation, including intake assembly references 100304496 and 1001303976 and blower reference 100144909.
+
+5. American Society of Heating, Refrigerating and Air-Conditioning Engineers (ASHRAE). *ASHRAE Handbook—Fundamentals*. Chapter on combustion and fuels.
+
+6. American Society of Heating, Refrigerating and Air-Conditioning Engineers (ASHRAE). *ASHRAE Handbook—Systems and Equipment*. Chapter on boilers.
+
+7. National Fire Protection Association (NFPA). *NFPA 54: National Fuel Gas Code*.
+
+8. National Fire Protection Association (NFPA). *NFPA 70: National Electrical Code*.
+
+9. CSA Group / American National Standards Institute (ANSI). *CSA/ANSI Z21.13 / CSA 4.9: Gas-Fired Low-Pressure Steam and Hot Water Boilers*.
+
+10. International Electrotechnical Commission (IEC). *IEC 60204-1: Safety of Machinery—Electrical Equipment of Machines—Part 1: General Requirements*.
+
+11. American Society of Heating, Refrigerating and Air-Conditioning Engineers (ASHRAE). *ANSI/ASHRAE Standard 202: The Commissioning Process*.
+
+12. Institute of Electrical and Electronics Engineers (IEEE). *IEEE Code of Ethics*.
+
+13. OpenAI. *ChatGPT*. Used to assist with research discussions, organizing design ideas, and improving the wording and structure of project documentation.
+
+**Reference note:** Manufacturer-defined limits, wiring diagrams, and interface specifications shall be taken from the current documentation for the exact hardware supplied.
 
 ## 12. Statement of Contributions
 
-Each team member must write and approve their own contribution statement. The following entries are placeholders. Each person must complete and approve their own statement before submission; the placeholders must not be treated as factual claims.
-
 ### Daniel Craig
 
-\[To be completed by Daniel: describe the specific sections, design decisions, research, drawings, calculations, implementation, or testing personally completed.\]
+Contributed to researching the electrical hardware and components required for the project, including the air and gas damper actuators, blower, and associated control interfaces. Helped identify hardware requirements, potential limitations, and overall system design considerations.
 
 ### Charles Lutz
 
-\[To be completed by Charles: describe the specific sections, design decisions, research, drawings, calculations, implementation, or testing personally completed.\]
+Contributed to researching potential controllers, including Raspberry Pi, Arduino, and PLC-based alternatives. Helped develop the proposed control system architecture, research communication and I/O requirements, and identify methods for implementing the automated commissioning and optimization algorithm.
 
 ### Alex Marquez
 
-\[To be completed by Alex: describe the specific sections, design decisions, research, drawings, calculations, implementation, or testing personally completed.\]
+Contributed to researching data acquisition, sensor feedback, and system monitoring requirements. Helped identify methods to evaluate system performance, establish testing procedures, and develop project specifications and safety considerations.
 
 ### Ethan Davenport
 
-\[To be completed by Ethan: describe the specific sections, design decisions, research, drawings, calculations, implementation, or testing personally completed.\]
+Contributed to developing the project proposal, researching the existing Lochinvar Hellcat combustion system, and identifying potential improvements to the commissioning process. Assisted with project documentation, system requirements, and developing the proposed solution.
 
-Each team member shall ensure that their statement accurately describes their own contribution. The team shall review the final document for requirement traceability, technical accuracy, source quality, and consistency with the no-gas project boundary before submission.
+All team members met as a group to share individual research, discuss ideas, and collaborate on the development of the Project Proposal and Conceptual Design documents. Each team member conducted research on different aspects of the project and brought their findings to the group. We reviewed and discussed the information together, combined our research, and used it to develop a shared understanding of the project requirements, potential solutions, and overall design. Through these group discussions and collaborative efforts, we organized our findings and worked together to create both documents.
 
 
 ---
 
 
 
-# Appendix A — Supporting Background from the Project Proposal
+# Appendix A — Supporting Background
 
 The material in this appendix is retained as supporting context. If it conflicts with the conceptual design's scope, requirements, architecture, budget, schedule, safety constraints, or acceptance criteria, the conceptual design controls. In particular, **the project remains gas-free and will not fire the burner**.
 
@@ -720,10 +728,7 @@ been established; these items will be checked at the electrical-interface stage.
 The supplied 8.9-in A.O. Smith fan drawings identify blower assembly references 100144909 and
 100347594, rated for 120 VAC single-phase at 50/60 Hz, with a separate low-voltage control
 interface. The drawing identifies a PWM command line, tachometer output, DC-voltage pin, and
-common reference; the line-power input must remain electrically isolated from the controller.
-The additional AMETEK Nautilair 12.3-in reference describes 240 VAC blowers with mechanical, 0-
-10 VDC, or PWM speed controls depending on model (150540, 150541, or 150542). This is
-reference literature, not proof that the project uses the 12.3-in unit. The sponsor cost sheet lists
+common reference; the line-power input must remain electrically isolated from the controller. The sponsor cost sheet lists
 100144909 as the currently supplied blower; its interface should drive the first prototype.
 
 ![Sponsor-supplied 8.9-in blower assembly and signal/power connector diagram](Project_Proposal_Images/Ametek_Blower.png)
