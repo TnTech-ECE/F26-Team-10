@@ -5,7 +5,7 @@
 #### Project Supervisor: Ben Putnam
 #### Team Members: Daniel Craig, Charles Lutz, Alex Marquez, Ethan Davenport
 #### Course: ECE 4961 Capstone Design 1
-#### Date: 10/20/2026
+#### Date: 10/23/2026
 
 ---
 
