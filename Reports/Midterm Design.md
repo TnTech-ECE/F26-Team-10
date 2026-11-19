@@ -168,7 +168,7 @@ The software will separate command generation from measurement evaluation. Candi
 
 ### 4.2 Operational flowchart
 
-![Operational flowchart](Conceptual_Images/operational_flowchart.png)
+![Operational flowchart](Conceptual_Images/operational_flowchart.jpg)
 
 ## 5. Atomic Subsystem Specifications
 
