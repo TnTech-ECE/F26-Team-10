@@ -33,9 +33,14 @@ The prototype is intended to:
 - Preserve human review and avoid bypassing or replacing factory safety controls.
 - Demonstrate operation without fuel, flame, or live combustion.
 
+### 1.2 System complexity and component interactions
+
+- **Software–Hardware Boundary Constraints:** The supervisory computer/SBC cannot interface directly with industrial actuators or AC blower circuits without risking electrical damage or unintended motion. An isolated I/O and signal-conditioning layer translates bounded commands into physical signals while returning position and tachometer feedback without interfering with factory safety interlocks.
+- **Gas-Free Optimization vs. Physical Reality:** Because no fuel or flame is used, optimization evaluates candidate damper and blower settings against simulated or replayed combustion data rather than live combustion feedback. Explicit source labeling and state-machine checks prevent simulated/replayed values from being treated as validated combustion performance.
+
 ## 2. Restatement of the Fully Formulated Problem
 
-Commissioning a combustion system can require evaluating multiple operating points and finding appropriate relationships between air and fuel settings. Manual adjustment can be time-consuming and may produce inconsistent documentation. The project will develop a gas-free prototype that automates the controllable portions of this workflow and demonstrates how an optimization tool could support a qualified technician.
+Boiler commissioning requires evaluating multiple operating points to establish precise relationships between air and fuel settings, a manual process that is time-consuming and prone to inconsistent documentation. Field technicians lack a standardized, automated tool to coordinate damper adjustments and record verifiable test data safely. This project develops a gas-free prototype framework that automates controllable workflow steps, enforces strict operational bounds, and generates auditable test records to support qualified personnel.
 
 ### 2.1 Requirements (“shall” statements)
 
@@ -77,31 +82,37 @@ Lochinvar's primary needs and interests include:
 
 The project will address these needs by developing an automated process that evaluates operating conditions, adjusts permitted settings, records measurement data, and verifies results against defined acceptance criteria. Project specifications and verification procedures will be aligned with Lochinvar's requirements and reviewed with the project sponsor as needed.
 
+**End-User / Field Technicians (Operators)**
+
+Field service engineers and technicians use the supervisory interface to execute, monitor, and review automated commissioning test sequences safely. Their primary interests are minimizing manual tuning errors, enforcing safe operating limits, and standardizing test documentation.
+
+**Maintenance Personnel**
+
+Technicians responsible for servicing the Hellcat assembly rely on clear, auditable logs, fault records, and verifiable baseline data to support diagnostics and ongoing maintenance.
 
 ### 2.3 Origins of constraints
 
-| Constraint                                                   | Origin and design effect                                                                                                                     |
-|:-------------------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------|
-| No gas or live firing                                        | Project scope and laboratory safety constraint. All tests use dry bench operation, simulated inputs, or recorded data.                       |
-| Factory safety system remains authoritative                  | Manufacturer requirements, public safety, and professional engineering responsibility. The prototype is not a burner-management replacement. |
-| Use the supplied Hellcat intake assembly and 8.9-inch blower | Customer-provided resources and project scope. Mechanical/electrical compatibility must be confirmed.                                        |
-| Exact actuator interface not yet verified                    | Supplied component drawings and connector details must be reconciled before controller selection is finalized.                               |
-| No source code for the existing controller                   | Sponsor constraint. The team will develop an independent application and use only documented, permitted interfaces.                          |
-| Safe command limits and feedback validation                  | Electrical and mechanical safety; prevents unintended travel, overspeed, and invalid optimization results.                                   |
-| Manufacturer limits govern all commissioning assumptions     | Customer and product documentation. No limits will be invented from a spreadsheet or inferred from another actuator model.                   |
-| Student budget and schedule                                  | Course resource constraints. Existing lab instruments and sponsor-provided components will be used where available.                          |
+| Constraint | Origin and design effect |
+|:---|:---|
+| NFPA 70 (NEC) & IEC 60204-1 | Requires physical and electrical separation between low-voltage control electronics (3.3 V / 5 V / 24 V) and the 120 VAC single-phase blower circuit, driving opto-isolation, fusing, enclosed terminal blocks, and defined stop behavior[cite: 3, 9]. |
+| No gas or live firing (Project scope) | Constrains all physical integration to dry bench testing with fuel isolated; prohibits live combustion emissions and limits claims to mechanical tracking, workflow repeatability, and software/logic validation[cite: 3]. |
+| Factory safety system & Hellcat limits | Manufacturer service documentation governs travel and command bounds; software cannot invent limits, bypass factory interlocks, or replace burner-management safety functions[cite: 3]. |
+| Use supplied Hellcat intake & 8.9-in. blower | Customer-provided hardware (intake assembly and A. O. Smith 8.9-in. blower P/N 100144909); pinouts, voltages, and signal scaling must be verified before energization[cite: 3, 6]. |
+| Exact actuator interface unverified | Supplied component drawings and connector pinouts must be verified prior to energizing or finalizing controller/driver selection[cite: 3]. |
+| No source code for existing controller | Independent prototype application using only documented, permitted interfaces without modifying factory firmware[cite: 3, 4]. |
+| Student budget and schedule | Gated by interface verification first, using existing lab instruments and sponsor-supplied hardware where available. |
 
 ### 2.4 Stakeholder Specifications
 
 | ID | Stakeholder need | Specification | Proposed target | Verification method |
 |---|---|---|---|---|
 | SS-01 | Automated commissioning workflow | The system shall evaluate every approved bench-test point in the test plan. | 100% of approved test points evaluated or explicitly marked failed/skipped with a reason. | Compare the run log with the approved test-point list. |
-| SS-02 | Actuator positioning | The system shall command each supported actuator to a target position and report available position feedback. | Proposed target: ±0.1° only if supported by actuator resolution and verified measurement; otherwise document the achievable tolerance before acceptance testing. | Compare command and feedback against a calibrated reference or verified position signal. |
-| SS-03 | Blower control | The system shall command the blower through the verified interface and measure its tachometer response. | Proposed target: ±2% of target RPM where the hardware and measurement method support this tolerance. | Compare commanded RPM with measured RPM using a verified tachometer method. |
-| SS-04 | Data collection | The system shall log required commands, feedback, test state, and input data with timestamps. | At least one complete record per second during active tests, subject to interface and logging performance. | Inspect log fields and timestamp intervals. |
+| SS-02 | Actuator positioning | The system shall command each supported actuator to a target position and report available position feedback. | ±0.1° target tolerance (pending actuator resolution and feedback verification; document achievable tolerance before acceptance testing). | Compare command and feedback against a calibrated reference or verified position signal. |
+| SS-03 | Blower control | The system shall command the blower through the verified interface and measure its tachometer response. | ±2% of target RPM (where hardware and tachometer feedback support this target). | Compare commanded RPM against measured RPM using a verified tachometer feedback loop. |
+| SS-04 | Data collection | The system shall log required commands, feedback, test state, and input data with timestamps. | At least one complete record per second (≥ 1 Hz) during active tests. | Inspect log fields and timestamp delta intervals. |
 | SS-05 | Measurement quality | The system shall document units, resolution, accuracy, and source for each measurement or simulated input used by the software. | Documentation completed for 100% of required channels. | Review datasheets, interface notes, and reference-instrument comparisons where applicable. |
 | SS-06 | Repeatability | The system shall repeat selected bench tests under equivalent conditions and compare the results. | At least three runs per selected test condition; acceptance variation defined before testing. | Compare actuator positions, RPM, recorded inputs, and computed outputs across runs. |
-| SS-07 | Commissioning efficiency | The system shall measure the time required to execute the defined automated bench-test sequence. | Record a baseline and automated duration; a 20% reduction is a proposed goal only if a comparable manual baseline is available. | Time equivalent procedures and document differences in test coverage. |
+| SS-07 | Commissioning efficiency | The system shall measure the time required to execute the defined automated bench-test sequence. | Measure duration in seconds, targeting a 20% reduction vs. a documented manual baseline under equivalent dry-test tasks. | Compare automated vs. manual baseline execution times and document test-coverage differences. |
 | SS-08 | Operating limits and safety | The system shall reject commands outside configured bench-test limits and shall not enable burner firing or fuel flow. | Zero accepted out-of-range commands; burner firing prohibited throughout project testing. | Test boundary values and review state, command, and fault logs. |
 | SS-09 | Fault handling | The system shall detect defined simulated sensor, feedback, and communication faults and stop or inhibit the affected sequence. | 100% detection of the defined fault-injection cases. | Introduce faults in a controlled bench or simulation environment and verify the response. |
 | SS-10 | Documentation | The system shall produce a record for each completed test run. | 100% of completed runs have a corresponding record with inputs, commands, feedback, status, and faults. | Inspect generated logs and reports against a required-field checklist. |
@@ -128,6 +139,10 @@ Option C is selected as the initial architecture: a single-board computer for th
 The controller selection remains conditional on verification of the actual hardware interfaces. The team will first identify the exact electrical behavior of the VA33.11A-U3220G9 air actuator, VA33.VKG-28G gas actuator, and 100144909 blower. If the actuator command requires timing accuracy or electrical characteristics that the selected computer cannot reliably provide, a microcontroller or industrial I/O module will generate the low-level signals while the computer remains the supervisory application.
 
 Previous discussions have identified the Siemens LMV37.400Ax/LMV37.420Ax and OCI412.10 interface as possible communication options for future evaluation. They are not confirmed as the selected solution: compatibility with the supplied VA33 actuators, access to the required commissioning parameters, and suitability for the gas-free test scope must be verified from the applicable documentation. The factory controller must remain responsible for its intended control and safety functions; the student prototype will not bypass or replace those functions. The team will not assume that an LMV37, OCI412, SQM33, or other controller/interface is compatible simply because it is associated with Siemens combustion equipment.
+
+### 3.2 Broader factors and architecture selection
+
+Option C (SBC plus isolated interface electronics) was favored over manual spreadsheets (Option A) and direct factory firmware changes (Option E) to support repeatable technician workflows, explicit source labeling (`physical`, `simulated`, `replayed`), fault transparency, and required manual approval without risking factory safety systems. Because testing is strictly gas-free, environmental and operating-cost impacts remain hypothetical future considerations rather than measured prototype outcomes.
 
 ## 4. High-Level Solution
 
