@@ -164,66 +164,11 @@ The software will separate command generation from measurement evaluation. Candi
 
 ### 4.1 Hardware block diagram
 
-```mermaid
-flowchart TB
-    OP[Operator] <--> UI[User Interface]
-    UI <--> PC[Control and Optimization]
-    PC <--> LOG[Data Logging]
-    SIM[Simulated Combustion Data] --> PC
-
-    PC <--> IO[Isolated I/O]
-    IO <--> AIR[Air Damper Actuator]
-    IO <--> GAS[Gas Damper Actuator]
-    IO <--> BLOW[Blower Assembly]
-
-    PWR[Power Supply] --> IO
-```
-
-### Block Definitions
-
-| Block | Function |
-|---|---|
-| Operator Interface | Configure tests, monitor status, and approve results. |
-| Control and Optimization | Adjust damper positions and blower speed within defined limits. |
-| Simulated Data | Provide combustion data for optimization testing. |
-| Data Logging | Record commands, feedback, and optimization results. |
-| Isolated I/O | Interface with hardware control and feedback signals. |
-| Air Damper Actuator | Adjust air damper position. |
-| Gas Damper Actuator | Adjust gas damper position during dry testing; no gas is connected. |
-| Blower Assembly | Control blower speed and monitor tachometer feedback. |
-| Power Supply | Provide appropriately rated power to the hardware. |
+![Hardware block diagram](Conceptual_Images/block_diagram.png)
 
 ### 4.2 Operational flowchart
 
-```mermaid
-flowchart TD
-    A([Start]) --> B[Initialize and Verify Hardware]
-    B --> C[Record Initial Settings and Feedback]
-    C --> D[Generate Candidate Settings]
-    D --> E[Adjust Air Damper, Gas Damper, and Blower]
-    E --> F[Acquire Feedback and Combustion Data]
-    F --> G{Data Valid and Within Limits?}
-    G -- No --> H[Reject Candidate or Stop on Fault]
-    G -- Yes --> I[Evaluate Optimization Result]
-    H --> J{Continue?}
-    I --> J
-    J -- Yes --> D
-    J -- No --> K[Present Best Settings for Approval]
-    K --> L([End])
-```
-
-### 4.3 Operating States
-
-| State | Behavior | Exit Condition |
-|---|---|---|
-| Initialization | Load configuration and verify hardware interfaces. | Hardware checks pass. |
-| Baseline | Record initial actuator positions, blower speed, and available data. | Baseline recorded. |
-| Optimization | Generate candidate settings and adjust the air damper, gas damper, and blower. | Candidate settings applied. |
-| Measurement | Acquire feedback and simulated or recorded combustion data. | Data validity checked. |
-| Evaluation | Check constraints, calculate the objective score, and log results. | Candidate accepted or rejected. |
-| Stop/Fault | Stop new commands and log the fault when feedback or safety checks fail. | Operator review and reset. |
-| Review | Present the best candidate and test report for manual approval. | Operator approves or rejects results. |
-
+![Operational flowchart](Conceptual_Images/operational_flowchart.png)
 
 ## 5. Atomic Subsystem Specifications
 
@@ -467,28 +412,58 @@ The team shall:
 - Clearly label all simulated data and all reports as gas-free prototype results.
 - Document unresolved risks, failed tests, and limitations honestly.
 
+In alignment with the **IEEE Code of Ethics**, the team prioritizes safety, upholds the strict no-gas project boundary, refuses to bypass factory safety interlocks, clearly labels simulated or replayed data versus physical measurements, and reports limitations and test outcomes honestly.
+
+| Hazard category | Exposed personnel | Severity | Engineering control | Verification milestone |
+|:---|:---|:---|:---|:---|
+| Electrical shock / AC-to-low-voltage intrusion | Students, lab technicians, future operators | High | Physical and electrical separation between 120 VAC blower circuit and 3.3 V / 5 V / 24 V control electronics; opto-isolation, fusing, strain relief, and protective enclosures | Pre-power electrical inspection and interface sign-off before energization |
+| Unexpected actuator motion / pinch & stored energy | Students, lab technicians, future operators | High | Hardware interface and pinout verification prior to power; hard command/travel bounds (`R-06`); documented stop/unpowered state (`R-08`, `ACT-08`); physical guarding | Dry bench hardware integration and stop/bounds tests (`V-02`, `V-04`) |
+| Rotating blower / mechanical hazards | Students, lab technicians, future operators | High | Guarded 8.9-in. blower assembly, controlled speed commands (`BL-07`), tachometer loss detection (`BL-05`), and accessible stop control (`UI-03`, `R-08`) | Blower bench tests and stop verification (`V-04`, `V-08`) |
+| Misinterpreted simulated or stale data | Students, lab technicians, future operators | Medium | Explicit source tags (`physical`, `simulated`, `replayed`), freshness/validity checks (`DA-02`, `SW-05`), and clear report disclaimers (`LOG-04`, `LOG-05`) | Replay/data-validity and report-integrity tests (`V-06`, `V-07`, `V-09`) |
+| Unintended firing or safety bypass | Students, lab technicians, future operators | High | Fuel isolated and burner firing prohibited (`R-09`); factory burner-management and safety interlocks never bypassed or replaced (`R-10`) | Pre-test precondition checklist (`UI-02`) and supervisor review |
+
 ### 6.2 Standards and guidance
 
 The team shall review the current editions and applicability of relevant requirements with the customer and project supervisor. Listing a standard does not by itself establish that the student prototype is certified or compliant.
 
-| Standard / guidance                                                                   | Relevance to design                                                                                                                                                            |
-|:--------------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Lochinvar Hellcat service and installation documentation                              | Primary source for permitted commissioning practices, operating limits, hardware configuration, and factory safety requirements.                                               |
-| NFPA 54, National Fuel Gas Code                                                       | Relevant background for fuel-gas system safety; the project itself will not connect or use gas. Applicable requirements for the host system must be confirmed by the customer. |
-| CSA/ANSI Z21.13 / CSA 4.9, gas-fired low-pressure steam and hot-water boilers         | Relevant to the host boiler’s product-safety context; not a claim of certification for the prototype. Confirm the edition applicable to the actual equipment.                  |
-| NFPA 70, National Electrical Code                                                     | Relevant to electrical installation practices where applicable, including wiring and protection. The laboratory and supervisor determine applicable requirements.              |
-| IEC 60204-1, Safety of machinery — Electrical equipment of machines                   | Useful guidance for electrical design, stop behavior, wiring, and machine-related hazards where applicable.                                                                    |
-| ASHRAE Handbook, Fundamentals — combustion and fuels; Systems and Equipment — boilers | Technical background for combustion, excess air, and boiler performance. Simulated data cannot establish actual combustion performance.                                        |
-| ASHRAE Standard 202, The Commissioning Process                                        | Useful process guidance for documentation, verification, issue tracking, and review; not a substitute for manufacturer commissioning instructions.                             |
-| IEEE Code of Ethics                                                                   | Supports prioritizing public safety, disclosing limitations, avoiding misleading claims, and reporting results honestly.                                                       |
+| Standard / guidance | Design role & verification mapping |
+|:---|:---|
+| Lochinvar Hellcat service & installation documentation | Governs permitted commissioning practices, operating limits, hardware configuration, and factory safety boundaries; no limits invented or factory protections bypassed. |
+| IEC 60204-1, Safety of machinery — Electrical equipment of machines | Informs stop behavior, fault handling, and electrical/machine safety design; verified in stop-behavior test **`V-04`**. |
+| NFPA 70, National Electrical Code | Governs physical and electrical separation between AC line-voltage power and low-voltage control/signal circuits; reviewed during **pre-power electrical inspection**. |
+| ASHRAE Standard 202, The Commissioning Process | Guides commissioning documentation, test records, and report structure; verified in report-integrity test **`V-09`**. |
+| UL 508A | **Conditional:** Applies if a formal industrial control panel enclosure is constructed for the prototype. |
+| NFPA 54 & CSA/ANSI Z21.13 / CSA 4.9 | **Host-boiler background context only:** Treated as fuel-gas/boiler safety context for the host system; no gas or live firing is used in this project. |
+| ASHRAE Handbook (Fundamentals & Systems/Equipment) | Technical background on excess air, combustion, and boilers; simulated data cannot establish live combustion performance. |
+| IEEE Code of Ethics | Guides safety-first engineering, transparent data-source labeling, explicit reporting boundaries, and honest disclosure of limitations. |
 
 ### 6.3 Environmental and economic impact
 
-The long-term motivation is to reduce commissioning time, improve repeatability, and potentially improve combustion performance. Those benefits remain hypotheses until validated. Because the prototype will not fire the burner, the project cannot claim measured reductions in fuel use, emissions, or carbon monoxide. Its valid performance claims are limited to software behavior, command/feedback performance, repeatability of the dry test workflow, quality of records, and comparison of workflow time under the test conditions.
+Because this prototype is strictly gas-free and will not fire the burner, the team cannot measure or claim reductions in emissions, carbon monoxide, fuel consumption, or building operating costs. Any sustainability, environmental, or cost-saving benefits remain potential future outcomes that would require live combustion testing and separate validation to demonstrate. Valid prototype claims are restricted to dry bench command/feedback behavior, workflow repeatability, data-record quality, and dry-test execution time compared against a documented manual baseline.
 
 ### 6.4 Data integrity and cybersecurity
 
 The software shall distinguish physical readings from simulated and replayed data. Configuration files and test records shall identify their versions. The prototype shall not accept undocumented remote commands or expose physical outputs to an unprotected network. Communication loss or corrupted input shall stop new optimization commands and trigger the documented fault behavior.
+
+### 6.5 Downstream affected groups and mitigations
+
+While Lochinvar is the project sponsor and customer, downstream groups could be affected if similar commissioning tools are adopted or evaluated later:
+
+- **End-User / Field Technicians:** Could benefit from reduced manual setup/logging effort on repeatable checks, but may face training needs and risk overreliance on automated recommendations. *Mitigation:* Visible data-source labels (`UI-04`, `UI-06`, `DA-01`), clear fault explanations (`UI-08`), operator training, and mandatory manual approval before accepting candidate settings (`R-17`).
+- **Future Building Owners:** Could potentially see workflow or baseline benefits, but may face equipment, setup, or transition costs. *Mitigation:* Documented test baselines and a strict prohibition on unsupported financial or operating-cost claims.
+- **Future Building Occupants (Hypothetical):** No live-combustion risk exists in this gas-free prototype. Any future firing deployment would be a separate activity outside this project. *Mitigation:* Gas-free project scope (`R-09`), preserved factory safety controls (`R-10`), human approval (`R-17`), and separate validation/authorization prior to any live-combustion use.
+
+### 6.6 Constraint and mitigation verification matrix
+
+Pending actuator/blower hardware tolerances remain unassigned until component documentation and bench measurements are verified. Where a tolerance is not yet finalized, completion is tracked against documented verification rather than an unverified number.
+
+| Requirement / mitigation | Measurable or binary evidence | Shared owner | Milestone |
+|:---|:---|:---|:---|
+| `R-09` / `R-10` (No gas/firing; preserve factory safety) | Binary: fuel isolated, burner disabled, zero bypass of factory safety functions | Project team (supervisor review) | Pre-energization & dry bench integration |
+| `R-18` (No energization before interface check) | Binary: verified pinout, voltage, and signal checklist completed prior to power-up | Project team (supervisor review) | Gate 1: Interface verification |
+| `R-06` / `SS-08` / `V-02` (Command bounds) | Quantitative/binary: 0 accepted out-of-range commands in boundary tests | Project team | Unit & integration verification (`V-02`) |
+| `R-08` / `SS-09` / `V-04`–`V-06` (Stop & faults) | Quantitative/binary: 100% detection of defined fault-injection cases; documented safe state reached | Project team | Fault & stop verification (`V-04`–`V-06`) |
+| `R-17` / `DA-01` / `V-09` (Manual approval & labels) | Binary: manual approval required before accept; 100% of log/report fields match source labels | Project team | Report & workflow verification (`V-09`) |
 
 ## 7. Resources
 
@@ -534,7 +509,7 @@ Combustion expertise will be obtained from Lochinvar documentation and customer/
 
 ### 7.3 Timeline and Gantt chart
 
-![Capstone 1 Ganatt Chart](Conceptual_Images/Gantt_Chart.png)
+![Capstone 1 Gantt Chart](Conceptual_Images/Lochinvar_Hellcat_Gantt_Chart.png)
 
 ## 8. Verification and Acceptance Plan
 
@@ -543,7 +518,7 @@ Combustion expertise will be obtained from Lochinvar documentation and customer/
 | V-01    | Configuration validation  | Provide missing, malformed, and out-of-range configuration values.                                                | Run is blocked and a clear error is logged.                                                                             |
 | V-02    | Command-limit enforcement | Request commands below, within, and above configured bounds.                                                      | Out-of-range commands are rejected before reaching the interface.                                                       |
 | V-03    | Feedback scaling          | Compare reported actuator position and blower speed with an independent reference instrument or verified fixture. | Error is measured and compared with a tolerance set before testing.                                                     |
-| V-04    | Stop behavior             | Trigger stop during idle, command, and stabilization states.                                                      | New optimization commands stop and the documented output state is reached.                                              |
+| V-04 | Stop behavior & fault routing | Trigger stop during idle, command, and **SW-06** stabilization timeout/fault states, plus inject failed hardware init and critical feedback/comm faults. | New commands halt immediately, faults route to **Stop/Fault**, documented safe state is reached, and operator review/reset is required to restart. |
 | V-05    | Communication timeout     | Disconnect or simulate loss of feedback/communications.                                                           | Fault is raised; no new optimization commands are issued.                                                               |
 | V-06    | Invalid sensor data       | Inject stale, missing, NaN, and out-of-range simulated values.                                                    | Candidate is rejected and the reason is recorded.                                                                       |
 | V-07    | Replay repeatability      | Run the same saved dataset and configuration multiple times.                                                      | Candidate sequence and decisions match deterministically, except explicitly nondeterministic fields such as timestamps. |
