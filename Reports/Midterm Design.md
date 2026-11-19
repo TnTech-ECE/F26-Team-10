@@ -94,12 +94,12 @@ Technicians responsible for servicing the Hellcat assembly rely on clear, audita
 
 | Constraint | Origin and design effect |
 |:---|:---|
-| NFPA 70 (NEC) & IEC 60204-1 | Requires physical and electrical separation between low-voltage control electronics (3.3 V / 5 V / 24 V) and the 120 VAC single-phase blower circuit, driving opto-isolation, fusing, enclosed terminal blocks, and defined stop behavior[cite: 3, 9]. |
-| No gas or live firing (Project scope) | Constrains all physical integration to dry bench testing with fuel isolated; prohibits live combustion emissions and limits claims to mechanical tracking, workflow repeatability, and software/logic validation[cite: 3]. |
-| Factory safety system & Hellcat limits | Manufacturer service documentation governs travel and command bounds; software cannot invent limits, bypass factory interlocks, or replace burner-management safety functions[cite: 3]. |
-| Use supplied Hellcat intake & 8.9-in. blower | Customer-provided hardware (intake assembly and A. O. Smith 8.9-in. blower P/N 100144909); pinouts, voltages, and signal scaling must be verified before energization[cite: 3, 6]. |
-| Exact actuator interface unverified | Supplied component drawings and connector pinouts must be verified prior to energizing or finalizing controller/driver selection[cite: 3]. |
-| No source code for existing controller | Independent prototype application using only documented, permitted interfaces without modifying factory firmware[cite: 3, 4]. |
+| NFPA 70 (NEC) & IEC 60204-1 | Requires physical and electrical separation between low-voltage control electronics (3.3 V / 5 V / 24 V) and the 120 VAC single-phase blower circuit, driving opto-isolation, fusing, enclosed terminal blocks, and defined stop behavior. |
+| No gas or live firing (Project scope) | Constrains all physical integration to dry bench testing with fuel isolated; prohibits live combustion emissions and limits claims to mechanical tracking, workflow repeatability, and software/logic validation. |
+| Factory safety system & Hellcat limits | Manufacturer service documentation governs travel and command bounds; software cannot invent limits, bypass factory interlocks, or replace burner-management safety functions. |
+| Use supplied Hellcat intake & 8.9-in. blower | Customer-provided hardware (intake assembly and A. O. Smith 8.9-in. blower P/N 100144909); pinouts, voltages, and signal scaling must be verified before energization. |
+| Exact actuator interface unverified | Supplied component drawings and connector pinouts must be verified prior to energizing or finalizing controller/driver selection. |
+| No source code for existing controller | Independent prototype application using only documented, permitted interfaces without modifying factory firmware. |
 | Student budget and schedule | Gated by interface verification first, using existing lab instruments and sponsor-supplied hardware where available. |
 
 ### 2.4 Stakeholder Specifications
@@ -488,7 +488,7 @@ The sponsor has supplied an intake assembly and blower. Their reference values a
 
 | Qty. | Part                                                  | Reference value | Budget treatment           |
 |-----:|:------------------------------------------------------|----------------:|:---------------------------|
-|    1 | Intake assembly, part 100304496 (proposal cost sheet) |           \$952 | Sponsor-provided           |
+|    1 | Intake assembly, part 100303976 (proposal cost sheet) |           \$952 | Sponsor-provided           |
 |    1 | A. O. Smith 8.9-inch blower, part 100144909           |           \$497 | Sponsor-provided           |
 |      | **Total in-kind reference value**                     |     **\$1,449** | Not included in cash total |
 
@@ -583,8 +583,6 @@ The team will deliver:
 
 12. Institute of Electrical and Electronics Engineers (IEEE). *IEEE Code of Ethics*.
 
-13. OpenAI. *ChatGPT*. Used to assist with research discussions, organizing design ideas, and improving the wording and structure of project documentation.
-
 **Reference note:** Manufacturer-defined limits, wiring diagrams, and interface specifications shall be taken from the current documentation for the exact hardware supplied.
 
 ## 12. Statement of Contributions
@@ -607,6 +605,9 @@ Contributed to developing the project proposal, researching the existing Lochinv
 
 All team members met as a group to share individual research, discuss ideas, and collaborate on the development of the Project Proposal and Conceptual Design documents. Each team member conducted research on different aspects of the project and brought their findings to the group. We reviewed and discussed the information together, combined our research, and used it to develop a shared understanding of the project requirements, potential solutions, and overall design. Through these group discussions and collaborative efforts, we organized our findings and worked together to create both documents.
 
+### AI Assistance Disclosure
+
+OpenAI's ChatGPT was used as a writing and organizational aid to assist with brainstorming, structuring sections, and refining wording in this document. All technical requirements, engineering decisions, hardware interfaces, safety boundaries, and verification plans were reviewed, verified, and approved by the project team and sponsor documentation.
 
 ---
 
@@ -683,7 +684,7 @@ and mechanical interfaces before implementing closed-loop commissioning. These a
 component references, not evidence that a fully functioning burner test system has been
 assembled.
 #### A.2.6.1 Intake and Gas-Valve Assembly
-A.O. Smith / Lochinvar intake assembly (part 1001303976, FCB1500-2000) contains:
+A.O. Smith / Lochinvar intake assembly (part 100303976) contains:
 
 - Siemens air-intake valve (100308435) with VA33.11A-U3220G9 actuator
 - Siemens gas butterfly valve (100308437) with VA33.VKG-28G actuator
